@@ -1,0 +1,28 @@
+{
+  "title": "enrollment and subject advising",
+  "root": "root_f28638a7-697f-493f-b7cd-b9676e28dd3a",
+  "nodes": {
+    "root_f28638a7-697f-493f-b7cd-b9676e28dd3a": {
+      "text": "New Term Activated",
+      "children": [
+        "1d88130c-ecf2-48cc-a9a9-3cfa171ea846",
+        "9c5556c2-7b2d-4621-90a4-99edc5d58389"
+      ],
+      "comment": "asdsadas"
+    },
+    "1d88130c-ecf2-48cc-a9a9-3cfa171ea846": {
+      "text": "New Student Case",
+      "children": []
+    },
+    "9c5556c2-7b2d-4621-90a4-99edc5d58389": {
+      "text": "current student Case",
+      "children": [
+        "1ef9d148-bef2-442d-8851-c028aa2998fe"
+      ]
+    },
+    "1ef9d148-bef2-442d-8851-c028aa2998fe": {
+      "text": "New Branch",
+      "children": []
+    }
+  }
+}

@@ -40,6 +40,7 @@ const svgContainer = document.getElementById('connections-svg');
 // Modal Elements
 const modal = document.getElementById('node-modal');
 const nodeTextInput = document.getElementById('node-text-input');
+const nodeCommentInput = document.getElementById('node-comment-input');
 const saveNodeBtn = document.getElementById('save-node-btn');
 const cancelBtn = document.getElementById('cancel-btn');
 const addChildBtn = document.getElementById('add-child-btn');
@@ -348,7 +349,27 @@ function buildNodeDom(nodeId) {
     const nodeEl = document.createElement('div');
     nodeEl.className = 'node-content';
     nodeEl.id = `node-${nodeId}`;
-    nodeEl.textContent = nodeData.text || 'Untitled Node';
+
+    const textSpan = document.createElement('div');
+    textSpan.className = 'node-text-span';
+    textSpan.textContent = nodeData.text || 'Untitled Node';
+    nodeEl.appendChild(textSpan);
+
+    const commentIcon = document.createElement('div');
+    commentIcon.className = 'node-comment-icon';
+    if (nodeData.comment && nodeData.comment.trim() !== '') {
+        commentIcon.classList.add('has-comment');
+    }
+    commentIcon.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>`;
+    commentIcon.title = "Comments";
+
+    commentIcon.addEventListener('click', (e) => {
+        if (Date.now() - panningEndTime < 100) return;
+        e.stopPropagation();
+        openNodeModal(nodeId, true);
+    });
+
+    nodeEl.appendChild(commentIcon);
 
     // Drag and Drop (DnD) setup
     nodeEl.draggable = true;
@@ -410,7 +431,7 @@ function buildNodeDom(nodeId) {
         // Only open if not panning
         if (Date.now() - panningEndTime < 100) return;
         e.stopPropagation();
-        openNodeModal(nodeId);
+        openNodeModal(nodeId, false);
     });
 
     container.appendChild(nodeEl);
@@ -570,11 +591,12 @@ canvasWrapper.addEventListener('wheel', (e) => {
 }, { passive: false });
 
 /* Modal Operations */
-function openNodeModal(nodeId) {
+function openNodeModal(nodeId, focusComment = false) {
     activeNodeId = nodeId;
     const nodeData = activeMapData.nodes[nodeId];
 
     nodeTextInput.value = nodeData.text || '';
+    nodeCommentInput.value = nodeData.comment || '';
 
     if (nodeId === activeMapData.root) {
         deleteNodeBtn.style.display = 'none';
@@ -583,7 +605,12 @@ function openNodeModal(nodeId) {
     }
 
     modal.classList.add('visible');
-    nodeTextInput.focus();
+
+    if (focusComment) {
+        nodeCommentInput.focus();
+    } else {
+        nodeTextInput.focus();
+    }
 }
 
 function closeNodeModal() {
@@ -595,18 +622,30 @@ function updateNodeText() {
     if (!activeNodeId) return;
 
     const textVal = nodeTextInput.value.trim() || 'Untitled Node';
+    const commentVal = nodeCommentInput.value.trim() || '';
 
     // Only save history if text actually changed
-    if (activeMapData.nodes[activeNodeId].text !== textVal) {
+    if (activeMapData.nodes[activeNodeId].text !== textVal || activeMapData.nodes[activeNodeId].comment !== commentVal) {
         saveHistoryState();
     }
 
     activeMapData.nodes[activeNodeId].text = textVal;
+    activeMapData.nodes[activeNodeId].comment = commentVal;
 
     // GRANULAR DOM UPDATE: Instead of a full map redraw, just update DOM node's text and save
     const nodeEl = document.getElementById(`node-${activeNodeId}`);
     if (nodeEl) {
-        nodeEl.textContent = textVal;
+        const textSpan = nodeEl.querySelector('.node-text-span');
+        if (textSpan) textSpan.textContent = textVal;
+
+        const commentIcon = nodeEl.querySelector('.node-comment-icon');
+        if (commentIcon) {
+            if (commentVal) {
+                commentIcon.classList.add('has-comment');
+            } else {
+                commentIcon.classList.remove('has-comment');
+            }
+        }
     }
 
     debouncedSaveMap();

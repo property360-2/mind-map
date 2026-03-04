@@ -277,12 +277,14 @@ body {
 
 /* Flowchart Box (Rounded Rectangle) */
 .node-content {
+  position: relative;
   background-color: var(--node-bg);
   border: 1px solid var(--node-border);
   border-radius: 8px;
   /* Rounded corners */
   padding: 12px 24px;
   min-width: 120px;
+  width: max-content;
   max-width: 250px;
   word-wrap: break-word;
   /* Force long texts to break downwards */
@@ -304,6 +306,45 @@ body {
 .node-content:hover {
   box-shadow: var(--node-shadow-hover);
   border-color: #94a3b8;
+}
+
+.node-comment-icon {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 26px;
+  height: 26px;
+  background: white;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  /* Minimal blue hint */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  opacity: 1;
+  /* Always visible */
+  transition: all 0.2s ease;
+  color: rgba(59, 130, 246, 0.4);
+  /* Minimal blue hint */
+  z-index: 10;
+}
+
+.node-comment-icon.has-comment {
+  opacity: 1;
+}
+
+.node-comment-icon:hover {
+  transform: scale(1.1);
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.node-comment-icon.has-comment {
+  background: #eff6ff;
+  border-color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 .node-content.drag-over {
@@ -363,22 +404,30 @@ body {
   font-size: 1.1rem;
 }
 
-#node-text-input {
+#node-text-input,
+#node-comment-input {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid var(--border-color);
   border-radius: 6px;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   font-family: inherit;
   font-size: 0.95rem;
   resize: vertical;
   min-height: 80px;
 }
 
-#node-text-input:focus {
+#node-comment-input {
+  min-height: 100px;
+  background-color: #f8fafc;
+  margin-bottom: 20px;
+}
+
+#node-text-input:focus,
+#node-comment-input:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .modal-actions {
