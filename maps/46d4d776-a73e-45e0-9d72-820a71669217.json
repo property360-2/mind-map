@@ -1,5 +1,5 @@
 {
-  "title": "enrollment and subject advising",
+  "title": "enrollment, sectioning, ",
   "root": "root_f28638a7-697f-493f-b7cd-b9676e28dd3a",
   "nodes": {
     "root_f28638a7-697f-493f-b7cd-b9676e28dd3a": {
@@ -12,7 +12,9 @@
     },
     "1d88130c-ecf2-48cc-a9a9-3cfa171ea846": {
       "text": "New Student Case",
-      "children": []
+      "children": [
+        "01308e8f-0a28-4f68-826f-25ec3909fb1f"
+      ]
     },
     "9c5556c2-7b2d-4621-90a4-99edc5d58389": {
       "text": "current student Case",
@@ -21,6 +23,29 @@
       ]
     },
     "1ef9d148-bef2-442d-8851-c028aa2998fe": {
+      "text": "New Branch",
+      "children": []
+    },
+    "01308e8f-0a28-4f68-826f-25ec3909fb1f": {
+      "text": "new student initially enroll online",
+      "children": [
+        "4e3f19f1-1e7c-46c2-bf52-1c09a768d481"
+      ],
+      "comment": "we will remove the payment step here \nafter submission is lalabas daw yung mga documents na need nila ipasa, also sabihin na need nila pumunta on the spot sa admission"
+    },
+    "4e3f19f1-1e7c-46c2-bf52-1c09a768d481": {
+      "text": "Admission Approves",
+      "children": [
+        "0124db5a-2939-4f68-9979-d39ebb52baa9"
+      ],
+      "comment": "admission manually verify the documents passed by the student, then check the checkbox"
+    },
+    "0124db5a-2939-4f68-9979-d39ebb52baa9": {
+      "text": "subject approved",
+      "children": [],
+      "comment": "system automatically enroll subject 1st year and 1st sem\nthis subject is also auto approved by the head and registrar \npwede na rin magbayad ang student in this part"
+    },
+    "72607525-2467-4421-8686-263e28997223": {
       "text": "New Branch",
       "children": []
     }

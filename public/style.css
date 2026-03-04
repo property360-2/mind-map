@@ -278,6 +278,8 @@ body {
 /* Flowchart Box (Rounded Rectangle) */
 .node-content {
   position: relative;
+  z-index: 2;
+  /* Ensure it stays above the comment label */
   background-color: var(--node-bg);
   border: 1px solid var(--node-border);
   border-radius: 8px;
@@ -345,6 +347,33 @@ body {
   background: #eff6ff;
   border-color: var(--primary-color);
   color: var(--primary-color);
+}
+
+/* Temporary label injected only during PNG export */
+.export-comment-label {
+  background: #fffbef;
+  /* Pale yellow post-it style */
+  border: 1px solid #fde68a;
+  border-top: none;
+  /* Hide top border natively */
+  padding: 14px 12px 8px 12px;
+  /* Extra top padding to handle overlap */
+  border-radius: 0 0 6px 6px;
+  /* Round ONLY bottom corners */
+  font-size: 0.8rem;
+  color: #92400e;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  /* Match mostly with box width dynamically via JS */
+  margin: -12px 0 10px 0;
+  /* Pull up EXACTLY under the padding */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  z-index: 0;
+  text-align: left;
+  line-height: 1.4;
+  position: relative;
 }
 
 .node-content.drag-over {

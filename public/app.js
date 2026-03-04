@@ -513,8 +513,16 @@ function drawConnections() {
         const pRect = parentEl.getBoundingClientRect();
 
         // Reverse engineer the scaled position relative to the UN-SCALED canvas container
-        const startX = (pRect.left + pRect.width / 2 - containerRect.left) / scale;
-        const startY = (pRect.bottom - containerRect.top) / scale;
+        let startX = (pRect.left + pRect.width / 2 - containerRect.left) / scale;
+        let startY = (pRect.bottom - containerRect.top) / scale;
+
+        // If there's an export comment label, adjust startY to the bottom of the label
+        // so the arrow doesn't pass perfectly through the note
+        const labelEl = parentEl.parentElement.querySelector('.export-comment-label');
+        if (labelEl) {
+            const lRect = labelEl.getBoundingClientRect();
+            startY = (lRect.bottom - containerRect.top) / scale;
+        }
 
         nodeData.children.forEach(childId => {
             const childEl = document.getElementById(`node-${childId}`);
@@ -710,14 +718,37 @@ async function exportImage() {
     translateY = 0;
     updateCanvasTransform();
 
-    // 2. Measure the true size of the drawn map structure
-    // We add 150px padding to give the exported flowchart some breathing room
-    await new Promise(r => setTimeout(r, 50)); // let flexbox paint
-    const rect = rootContainer.getBoundingClientRect();
-    const requiredWidth = rect.width + 150;
-    const requiredHeight = Math.max(rect.height + 150, canvasWrapper.clientHeight);
+    // 2. Temporarily inject comment text logic so the PNG shows the actual notes
+    // We do this BEFORE measuring so the canvas size accounts for the new labels
+    const tempCommentLabels = [];
+    document.querySelectorAll('.node-content').forEach(nodeEl => {
+        const nodeId = nodeEl.id.replace('node-', '');
+        const nodeData = activeMapData.nodes[nodeId];
+        if (nodeData && nodeData.comment && nodeData.comment.trim() !== '') {
+            const label = document.createElement('div');
+            label.className = 'export-comment-label';
+            label.textContent = nodeData.comment;
 
-    // 3. Temporarily expand the container layer so html2canvas doesn't crop large maps
+            // Match the label width strictly to the actual drawn width of the node
+            label.style.width = Math.round(nodeEl.offsetWidth) + 'px';
+
+            // Append to the container so it pushes the layout downward
+            const container = nodeEl.closest('.node-container');
+            if (container) {
+                // Insert after the node content
+                container.insertBefore(label, nodeEl.nextSibling);
+                tempCommentLabels.push(label);
+            }
+        }
+    });
+
+    // 3. Measure the true size of the drawn map structure (now including labels)
+    await new Promise(r => setTimeout(r, 100)); // let flexbox paint labels
+    const rect = rootContainer.getBoundingClientRect();
+    const requiredWidth = rect.width + 200;
+    const requiredHeight = Math.max(rect.height + 200, canvasWrapper.clientHeight);
+
+    // 4. Temporarily expand the container layer so html2canvas doesn't crop large maps
     const originalWidth = canvasContainer.style.width;
     const originalHeight = canvasContainer.style.height;
 
@@ -725,6 +756,7 @@ async function exportImage() {
     canvasContainer.style.height = requiredHeight + 'px';
 
     // The SVGs map 1:1 to canvasContainer layout, so structural resize requires redrawing connections
+    // Calling this AFTER injection ensures arrows stretch to bypass the labels
     drawConnections();
 
     // Give the browser one more tick to paint the new SVG paths onto the expanded layout
@@ -761,7 +793,10 @@ async function exportImage() {
         console.error('Error exporting image:', error);
         showToast('Failed to export image');
     } finally {
-        // 6. Restore original dimensions and user viewport seamlessly
+        // 6. Remove temporary comment labels
+        tempCommentLabels.forEach(label => label.remove());
+
+        // 7. Restore original dimensions and user viewport seamlessly
         canvasContainer.style.width = originalWidth;
         canvasContainer.style.height = originalHeight;
 
