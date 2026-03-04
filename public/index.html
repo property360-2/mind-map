@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Local Mind Map</title>
+  <link rel="stylesheet" href="style.css?v=2">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>pagawaan ng mind map</h2>
+        <button id="new-map-btn" class="btn primary-btn">+ New</button>
+      </div>
+      <div class="sidebar-tabs">
+        <button id="tab-active" class="tab-btn active">Active</button>
+        <button id="tab-archived" class="tab-btn">Archived</button>
+      </div>
+      <ul id="map-list" class="map-list">
+        <!-- List of maps will be injected here -->
+      </ul>
+    </aside>
+    
+    <main class="main-content">
+      <header class="topbar">
+        <input type="text" id="map-title" placeholder="Map Title" disabled>
+        <div class="topbar-actions" style="display: flex; gap: 12px; align-items: center;">
+          <span id="auto-save-status" class="text-muted" style="font-size: 0.85rem; opacity: 0; transition: opacity 0.3s; color: var(--text-muted);">Saved</span>
+          <button id="export-image-btn" class="btn secondary-btn" disabled>Export Image</button>
+          <button id="archive-map-btn" class="btn danger-btn" disabled>Archive Map</button>
+        </div>
+      </header>
+      
+      <div id="canvas-wrapper" class="canvas-wrapper">
+        <div id="canvas-container" class="canvas-container">
+          <!-- MUST statically declare 100% here to map internal coordinate grid 1:1 with CSS box model -->
+          <svg id="connections-svg" width="100%" height="100%"></svg>
+          
+          <div id="mind-map-root" class="mind-map-root">
+            <div class="empty-state">Select or create a map to begin</div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="node-modal" class="modal">
+    <div class="modal-content">
+      <h3>Edit Node</h3>
+      <textarea id="node-text-input" placeholder="Node Text" rows="3"></textarea>
+      <div class="modal-actions">
+        <button id="add-child-btn" class="btn secondary-btn">Add Child</button>
+        <button id="delete-node-btn" class="btn danger-btn">Delete Node</button>
+      </div>
+      <div class="modal-actions-bottom">
+        <button id="cancel-btn" class="btn">Cancel</button>
+        <button id="save-node-btn" class="btn primary-btn">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <script src="app.js?v=2"></script>
+</body>
+</html>

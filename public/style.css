@@ -1,0 +1,419 @@
+:root {
+  --bg-color: #f8fafc;
+  --sidebar-bg: #ffffff;
+  --border-color: #e2e8f0;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --primary-color: #3b82f6;
+  --primary-hover: #2563eb;
+  --danger-color: #ef4444;
+  --danger-hover: #dc2626;
+  --node-bg: #ffffff;
+  --node-border: #cbd5e1;
+  --node-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --node-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
+  --line-color: #94a3b8;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.5;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 280px;
+  background-color: var(--sidebar-bg);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+}
+
+.sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar-header h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.sidebar-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  background-color: #f8fafc;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 10px;
+  background: none;
+  border: none;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.tab-btn:hover {
+  color: var(--text-main);
+  background: #f1f5f9;
+}
+
+.tab-btn.active {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+  background: white;
+}
+
+.map-item-restore {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.restore-btn {
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--primary-color);
+  transition: all 0.2s;
+}
+
+.restore-btn:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+.map-list {
+  list-style: none;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.map-item {
+  padding: 12px 20px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.map-item:hover {
+  background-color: #f1f5f9;
+}
+
+.map-item.active {
+  background-color: #eff6ff;
+  border-left: 4px solid var(--primary-color);
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  /* Infinite canvas handles its own overflow */
+}
+
+.topbar {
+  height: 60px;
+  background-color: var(--sidebar-bg);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 20;
+}
+
+#map-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  outline: none;
+  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+  width: 300px;
+}
+
+#map-title:disabled {
+  color: var(--text-muted);
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.primary-btn {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.primary-btn:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+}
+
+.secondary-btn {
+  background-color: white;
+  border-color: var(--border-color);
+  color: var(--text-main);
+}
+
+.secondary-btn:hover:not(:disabled) {
+  background-color: #f8fafc;
+}
+
+.danger-btn {
+  background-color: white;
+  border-color: var(--danger-color);
+  color: var(--danger-color);
+}
+
+.danger-btn:hover:not(:disabled) {
+  background-color: #fef2f2;
+}
+
+/* Canvas Area */
+.canvas-wrapper {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  background-color: var(--bg-color);
+  cursor: grab;
+}
+
+.canvas-wrapper:active {
+  cursor: grabbing;
+}
+
+.canvas-container {
+  /* This transforms the inner map content for pan/zoom */
+  position: absolute;
+  top: 60px;
+  /* Offset roughly */
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0 0;
+}
+
+#connections-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+.mind-map-root {
+  position: absolute;
+  top: 60px;
+  /* Push down so the root node is visually well placed initially */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+
+  /* Critical for forcing children to push the container width dynamically and not overlap */
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  display: flex;
+  justify-content: center;
+}
+
+/* Mind Map Layout Nodes */
+.node-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* Flowchart Box (Rounded Rectangle) */
+.node-content {
+  background-color: var(--node-bg);
+  border: 1px solid var(--node-border);
+  border-radius: 8px;
+  /* Rounded corners */
+  padding: 12px 24px;
+  min-width: 120px;
+  max-width: 250px;
+  word-wrap: break-word;
+  /* Force long texts to break downwards */
+  white-space: pre-wrap;
+  /* Respect multiline \n chars */
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.95rem;
+  box-shadow: var(--node-shadow);
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+  user-select: none;
+  margin-bottom: 24px;
+  /* Proper spacing to children row */
+  color: var(--text-main);
+  background-clip: padding-box;
+}
+
+.node-content:hover {
+  box-shadow: var(--node-shadow-hover);
+  border-color: #94a3b8;
+}
+
+.node-content.drag-over {
+  border-color: var(--primary-color);
+  background-color: #eff6ff;
+  transform: scale(1.05);
+}
+
+.children-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 24px;
+  /* Maintain safe gap between siblings */
+  padding-top: 40px;
+  /* Plentiful spacing for the arrows to arc smoothly */
+  position: relative;
+  min-width: max-content;
+}
+
+/* Empty State */
+.empty-state {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  margin-top: 40px;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(2px);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.visible {
+  display: flex;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 12px;
+  padding: 24px;
+  width: 400px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.modal-content h3 {
+  margin-bottom: 16px;
+  font-size: 1.1rem;
+}
+
+#node-text-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: vertical;
+  min-height: 80px;
+}
+
+#node-text-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.modal-actions-bottom {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 16px;
+}
+
+/* Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  padding: 12px 24px;
+  background-color: var(--text-main);
+  color: white;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.toast.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
