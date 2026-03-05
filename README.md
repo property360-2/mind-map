@@ -17,6 +17,7 @@ This application uses **LocalStorage** to save your work. This means your mind m
 
 Since this is a client-side application, please keep these points in mind:
 
+- **Desktop Optimized**: This tool is designed for desktop and laptop use. Small screens (tablets/phones) are currently not supported to ensure the best mind-mapping experience.
 - **Browser Specific**: Maps created here won't appear if you switch to a different browser or device.
 - **Cache Management**: If you clear your browser's site data or cache, your saved maps will be removed.
 - **Persistence**: This is a live version hosted on GitHub Pages, ensuring a fast and reliable experience without local setup.
