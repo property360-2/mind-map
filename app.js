@@ -1,4 +1,8 @@
-const API_BASE = 'http://localhost:3000/api';
+// localStorage Keys
+const STORAGE_KEYS = {
+    INDEX: 'mind_maps_index',
+    MAP_PREFIX: 'mind_map_data_'
+};
 
 let activeMapId = null;
 let activeMapData = null;
@@ -51,6 +55,17 @@ const resizeObserver = new ResizeObserver(() => {
     drawConnections();
 });
 
+// Helper: Get Index from localStorage
+function getMapsIndex() {
+    const rawIndex = localStorage.getItem(STORAGE_KEYS.INDEX);
+    return rawIndex ? JSON.parse(rawIndex) : [];
+}
+
+// Helper: Save Index to localStorage
+function saveMapsIndex(index) {
+    localStorage.setItem(STORAGE_KEYS.INDEX, JSON.stringify(index));
+}
+
 // Cryptographic UUID Generator
 function generateId() {
     return crypto.randomUUID();
@@ -77,9 +92,10 @@ function showToast(message) {
 // Fetch and render the list of maps
 async function loadMapList(preserveActive = true) {
     try {
-        const url = currentTab === 'archived' ? `${API_BASE}/maps/archived` : `${API_BASE}/maps`;
-        const res = await fetch(url);
-        const maps = await res.json();
+        const index = getMapsIndex();
+        const maps = index.filter(map =>
+            currentTab === 'archived' ? map.archived : !map.archived
+        );
 
         mapListEl.innerHTML = '';
 
@@ -137,21 +153,29 @@ async function loadMapList(preserveActive = true) {
                     li.appendChild(inputEl);
                     inputEl.focus();
 
-                    const saveInlineRender = async () => {
+                    const saveInlineRender = () => {
                         const newTitle = inputEl.value.trim() || 'Untitled';
                         spanText.textContent = newTitle;
+
+                        const index = getMapsIndex();
+                        const mapEntry = index.find(m => m.id === map.id);
+                        if (mapEntry) {
+                            mapEntry.title = newTitle;
+                            saveMapsIndex(index);
+                        }
 
                         if (map.id === activeMapId) {
                             mapTitleInput.value = newTitle;
                             activeMapData.title = newTitle;
                             debouncedSaveMap();
                         } else {
-                            // Quick sync to backend if we are renaming a non-active map
-                            await fetch(`${API_BASE}/maps/${map.id}`, {
-                                method: 'PUT',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ title: newTitle })  // Send just enough to trigger title update on backend
-                            });
+                            // Sync hidden map content title as well
+                            const rawData = localStorage.getItem(STORAGE_KEYS.MAP_PREFIX + map.id);
+                            if (rawData) {
+                                const data = JSON.parse(rawData);
+                                data.title = newTitle;
+                                localStorage.setItem(STORAGE_KEYS.MAP_PREFIX + map.id, JSON.stringify(data));
+                            }
                         }
 
                         inputEl.remove();
@@ -174,9 +198,14 @@ async function loadMapList(preserveActive = true) {
 // Restore Map Functionality
 async function restoreMap(id) {
     try {
-        await fetch(`${API_BASE}/maps/${id}/restore`, { method: 'PATCH' });
-        showToast('Map restored successfully');
-        loadMapList(); // Refresh the active tab automatically
+        const index = getMapsIndex();
+        const mapEntry = index.find(m => m.id === id);
+        if (mapEntry) {
+            mapEntry.archived = false;
+            saveMapsIndex(index);
+            showToast('Map restored successfully');
+            loadMapList(); // Refresh the active tab automatically
+        }
     } catch (error) {
         console.error('Error restoring map:', error);
         showToast('Failed to restore map');
@@ -186,14 +215,31 @@ async function restoreMap(id) {
 // Create a new map
 async function createNewMap() {
     try {
-        const res = await fetch(`${API_BASE}/maps`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({})
-        });
-        const newMap = await res.json();
+        const mapId = generateId();
+        const rootId = 'root_' + generateId();
+
+        const newMap = {
+            id: mapId,
+            title: "New Mind Map",
+            root: rootId,
+            nodes: {
+                [rootId]: {
+                    text: "Central Idea",
+                    children: []
+                }
+            }
+        };
+
+        // Save Map Data
+        localStorage.setItem(STORAGE_KEYS.MAP_PREFIX + mapId, JSON.stringify(newMap));
+
+        // Update Index
+        const index = getMapsIndex();
+        index.push({ id: mapId, title: newMap.title, archived: false });
+        saveMapsIndex(index);
+
         await loadMapList();
-        loadMap(newMap.id);
+        loadMap(mapId);
         showToast('New map created');
     } catch (error) {
         console.error('Error creating map:', error);
@@ -204,8 +250,10 @@ async function createNewMap() {
 // Load a specific map
 async function loadMap(id) {
     try {
-        const res = await fetch(`${API_BASE}/maps/${id}`);
-        const mapData = await res.json();
+        const rawData = localStorage.getItem(STORAGE_KEYS.MAP_PREFIX + id);
+        if (!rawData) throw new Error('Map not found');
+
+        const mapData = JSON.parse(rawData);
 
         activeMapId = id;
         activeMapData = mapData;
@@ -241,6 +289,16 @@ async function loadMap(id) {
 mapTitleInput.addEventListener('input', () => {
     if (activeMapData) {
         activeMapData.title = mapTitleInput.value;
+
+        // Immediate index title update for sidebar
+        const index = getMapsIndex();
+        const mapEntry = index.find(m => m.id === activeMapId);
+        if (mapEntry) {
+            mapEntry.title = mapTitleInput.value;
+            saveMapsIndex(index);
+            loadMapList();
+        }
+
         debouncedSaveMap();
     }
 });
@@ -292,17 +350,14 @@ function debouncedSaveMap() {
     autoSaveStatus.textContent = 'Saving...';
     autoSaveStatus.style.opacity = '1';
 
-    saveTimeout = setTimeout(async () => {
+    saveTimeout = setTimeout(() => {
         if (!activeMapId || !activeMapData) return;
         try {
-            await fetch(`${API_BASE}/maps/${activeMapId}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(activeMapData)
-            });
+            localStorage.setItem(STORAGE_KEYS.MAP_PREFIX + activeMapId, JSON.stringify(activeMapData));
+
             autoSaveStatus.textContent = 'Saved';
             setTimeout(() => { autoSaveStatus.style.opacity = '0'; }, 2000);
-            loadMapList(); // Refresh titles seamlessly
+            // No need for a full loadMapList() here anymore since title is handled immediately
         } catch (error) {
             console.error('Error saving map:', error);
             autoSaveStatus.textContent = 'Save Failed';
@@ -317,7 +372,12 @@ async function archiveMap() {
     if (!confirm('Are you sure you want to archive this map? It will be removed from your list.')) return;
 
     try {
-        await fetch(`${API_BASE}/maps/${activeMapId}`, { method: 'DELETE' });
+        const index = getMapsIndex();
+        const mapEntry = index.find(m => m.id === activeMapId);
+        if (mapEntry) {
+            mapEntry.archived = true;
+            saveMapsIndex(index);
+        }
 
         // Reset UI state
         activeMapId = null;
