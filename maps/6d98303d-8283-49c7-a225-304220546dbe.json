@@ -1,0 +1,52 @@
+{
+  "title": "D: Scheduling",
+  "root": "root_c9853ed5-3082-42de-86d2-f0661c2738a1",
+  "nodes": {
+    "root_c9853ed5-3082-42de-86d2-f0661c2738a1": {
+      "text": "Scheduling",
+      "children": [
+        "374b94a9-eb65-4e24-abde-11c75d955775",
+        "6b9fe697-5bc2-4055-904e-a3d650d34808"
+      ],
+      "comment": ""
+    },
+    "374b94a9-eb65-4e24-abde-11c75d955775": {
+      "text": "If user is student (student scheduling)",
+      "children": [
+        "f67738d1-b60c-40f9-9355-f1c5f1cffffb"
+      ],
+      "comment": ""
+    },
+    "6b9fe697-5bc2-4055-904e-a3d650d34808": {
+      "text": "If user is dean",
+      "children": [
+        "34112e83-7eb4-4a63-aeaf-91637640e010"
+      ],
+      "comment": ""
+    },
+    "d0216093-47ba-4966-af62-a3e55cba6e44": {
+      "text": "he can now see his schedule in his ui",
+      "children": [],
+      "comment": ""
+    },
+    "34112e83-7eb4-4a63-aeaf-91637640e010": {
+      "text": "Dean Assign schedule to professors",
+      "children": [
+        "b4d48a40-2586-4f5a-a819-e75a84ca6f7d"
+      ],
+      "comment": "dapat user friendly ito dahil this is scheduling \ndean\nsir gil idea is lalabas yung table of professors with column scheduled or unscheduled, also action called make schedule, if clicked is lalabas yung modal na form, merong checkbox monday to saturday, am or pm (both am and pm can be choosed) \na specific day or schedule cannot be choose if hindi na available"
+    },
+    "b4d48a40-2586-4f5a-a819-e75a84ca6f7d": {
+      "text": "professor can now see his schedule on his ui",
+      "children": [],
+      "comment": ""
+    },
+    "f67738d1-b60c-40f9-9355-f1c5f1cffffb": {
+      "text": "1st come first serve sa schedule slot\nif puno na yung am session then bawal na sa am session, system will automatically assign them to available session section (but still tell it to user na dahil wala nang available na section)",
+      "children": [
+        "d0216093-47ba-4966-af62-a3e55cba6e44"
+      ],
+      "comment": "when scheduling ended and di pa sila nakapili is system na mismo mag assign sa kanila"
+    }
+  }
+}

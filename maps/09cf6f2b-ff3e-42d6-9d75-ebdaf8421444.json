@@ -1,0 +1,32 @@
+{
+  "title": "A: Subject Crediting",
+  "root": "root_ce8d1eba-3b0b-4f48-89e7-20d6cf72b205",
+  "nodes": {
+    "root_ce8d1eba-3b0b-4f48-89e7-20d6cf72b205": {
+      "text": "Registrar find the approved application of student by the admission by idn or student, lalabas naman yun sa search",
+      "children": [
+        "1d212ac3-87c6-4468-b550-4f46083158f0"
+      ],
+      "comment": ""
+    },
+    "1d212ac3-87c6-4468-b550-4f46083158f0": {
+      "text": "Subject Crediting",
+      "children": [
+        "96a689a7-2455-4920-9d50-78b4afb51dab"
+      ],
+      "comment": "sa ui naman is lalabas na lahat ng subject from that program, we will also include search"
+    },
+    "96a689a7-2455-4920-9d50-78b4afb51dab": {
+      "text": "Subject Approval from the Program Head program",
+      "children": [
+        "2cc3dff9-8dc2-458a-a069-eb15a260951a"
+      ],
+      "comment": ""
+    },
+    "2cc3dff9-8dc2-458a-a069-eb15a260951a": {
+      "text": "B: Subject Advising",
+      "children": [],
+      "comment": ""
+    }
+  }
+}

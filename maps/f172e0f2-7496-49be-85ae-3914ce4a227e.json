@@ -1,0 +1,72 @@
+{
+  "title": "plan",
+  "root": "root_3e469549-6464-4415-b3b6-86ed8170f574",
+  "nodes": {
+    "root_3e469549-6464-4415-b3b6-86ed8170f574": {
+      "text": "School Portal",
+      "children": [
+        "da733898-ffb2-42fd-ba4f-b5c5ed129a79",
+        "0254bf88-f3b5-496c-9550-b071eb156ce2",
+        "ef633357-7caa-4b6f-a3d8-02f87ac38e48",
+        "d4af35e4-0571-4df0-8c5a-6f7869ac03c6",
+        "f060a6aa-55df-478e-992c-1eee201d7169",
+        "1d52677b-a648-4f27-b385-6ad513aecbb5",
+        "1c932287-e73d-4ab2-99fc-19b871c82ded",
+        "b9f524e3-f74f-4fdf-a6db-77a61080dc96",
+        "a8c4f139-9564-4726-a58b-0e60659ae86f",
+        "de2bb8b7-0f68-4503-9b96-ed62455813ce"
+      ],
+      "comment": ""
+    },
+    "da733898-ffb2-42fd-ba4f-b5c5ed129a79": {
+      "text": "Enrollment For new Term",
+      "children": [],
+      "comment": "kasama na rito yung current student, freshman, transferees"
+    },
+    "0254bf88-f3b5-496c-9550-b071eb156ce2": {
+      "text": "Subject Advising",
+      "children": [],
+      "comment": ""
+    },
+    "ef633357-7caa-4b6f-a3d8-02f87ac38e48": {
+      "text": "Sectioning",
+      "children": [],
+      "comment": ""
+    },
+    "d4af35e4-0571-4df0-8c5a-6f7869ac03c6": {
+      "text": "Scheduling",
+      "children": [],
+      "comment": ""
+    },
+    "f060a6aa-55df-478e-992c-1eee201d7169": {
+      "text": "Grade Submission",
+      "children": [],
+      "comment": ""
+    },
+    "1d52677b-a648-4f27-b385-6ad513aecbb5": {
+      "text": "Grade Resolution",
+      "children": [],
+      "comment": ""
+    },
+    "1c932287-e73d-4ab2-99fc-19b871c82ded": {
+      "text": "Reports",
+      "children": [],
+      "comment": ""
+    },
+    "b9f524e3-f74f-4fdf-a6db-77a61080dc96": {
+      "text": "Audit Trailing",
+      "children": [],
+      "comment": ""
+    },
+    "a8c4f139-9564-4726-a58b-0e60659ae86f": {
+      "text": "Data upload or input",
+      "children": [],
+      "comment": "we can integrate google sheet api if gusto nila, para di sila mahirapan if nasanay sila sa manual na google sheet, the point of this system is to centralize the data, like all of the users roles i've asked"
+    },
+    "de2bb8b7-0f68-4503-9b96-ed62455813ce": {
+      "text": "Subject crediting",
+      "children": [],
+      "comment": ""
+    }
+  }
+}

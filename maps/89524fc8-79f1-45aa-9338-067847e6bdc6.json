@@ -1,0 +1,83 @@
+{
+  "title": "New Term Enrollment",
+  "root": "root_cfdb1fbd-5339-4971-8258-1ab61ab18fc6",
+  "nodes": {
+    "root_cfdb1fbd-5339-4971-8258-1ab61ab18fc6": {
+      "text": "New Term Activated",
+      "children": [
+        "c6cd3b18-d932-44b4-9aa5-070fd8e4f6f5",
+        "a3ea5e72-9ee8-4990-b612-c52b666fcc4e"
+      ],
+      "comment": "term is planned and setted before the start of  the semester, since merong tayong new system na susundin is eto yung mga inputs na dapat nating gamitin\n\nTerm Start / End\nEnrollment Start / End\nGrade Submission Start / End\nSubject Advising (this is a must since we need to calculate the number of students who enrolled subjects or students who considered as active para sa sectioning)\nSchedule Picking"
+    },
+    "c6cd3b18-d932-44b4-9aa5-070fd8e4f6f5": {
+      "text": "Online Initial Enrollment",
+      "children": [
+        "3cd8d85d-61ac-4058-a6e4-215f7253d18e"
+      ],
+      "comment": "Basic Information ng student such as name address program \nwe can use this to predict the number of students na magiging fully enrolled sa school"
+    },
+    "a3ea5e72-9ee8-4990-b612-c52b666fcc4e": {
+      "text": "Current Student Case",
+      "children": [
+        "ac03eb80-eb10-405a-a0d1-1f7d7e43b704"
+      ],
+      "comment": ""
+    },
+    "26f14b44-6857-458b-89aa-c2c1eb62f818": {
+      "text": "New Branch",
+      "children": []
+    },
+    "3cd8d85d-61ac-4058-a6e4-215f7253d18e": {
+      "text": "After Submission is System will tell the applicant na dalhin yung mga list of documents sa screen and need nila pumunta sa school for verification of admission",
+      "children": [
+        "007eb085-fee9-4c9c-a921-7f118d0d12a3"
+      ],
+      "comment": ""
+    },
+    "007eb085-fee9-4c9c-a921-7f118d0d12a3": {
+      "text": "Admission verify the documents and approve the applicant application, student account credential are given here",
+      "children": [
+        "996ccc3e-5c04-4ffc-a465-7a01783cbf75",
+        "9d908952-f90f-48de-b5d2-f0a8be6aa6cb"
+      ],
+      "comment": "help me\nthe documents checklist should be checkbox \nin this part is bibigyan na ng system yung student ng idn, the format is if year is 2027 then the idn starts at 27 then incrementally increasing by 1, example if year is 2027 and first student then 270001 if 2nd student then 270002, dito rin pala magkakaroon ng account si student para makapag login sa system"
+    },
+    "996ccc3e-5c04-4ffc-a465-7a01783cbf75": {
+      "text": "if student is freshman",
+      "children": [
+        "48ce7cca-8acd-4a1a-943e-fd2c03092891"
+      ],
+      "comment": ""
+    },
+    "9d908952-f90f-48de-b5d2-f0a8be6aa6cb": {
+      "text": "if student is transferee",
+      "children": [
+        "3851b627-5cfe-4dcf-b032-643362e0cd14"
+      ],
+      "comment": "admission will tell the transferee that he needs to go to registrar so his subject will be credited"
+    },
+    "3851b627-5cfe-4dcf-b032-643362e0cd14": {
+      "text": "A: Subject Crediting",
+      "children": [],
+      "comment": ""
+    },
+    "48ce7cca-8acd-4a1a-943e-fd2c03092891": {
+      "text": "B: Subject Advising",
+      "children": [],
+      "comment": ""
+    },
+    "ac03eb80-eb10-405a-a0d1-1f7d7e43b704": {
+      "text": "Term Enrollment",
+      "children": [
+        "ba494bab-5918-4624-80cc-c7be4aa4d949"
+      ],
+      "comment": "eto yung mga papel or office of student affairs paper (no need to add to our system), \npero dapat pumunta si student sa admission physically to pass the papers, then admission will tag that student as enrolled for the sem"
+    },
+    "ba494bab-5918-4624-80cc-c7be4aa4d949": {
+      "text": "B: Subject Advising",
+      "children": [],
+      "comment": ""
+    }
+  }
+}

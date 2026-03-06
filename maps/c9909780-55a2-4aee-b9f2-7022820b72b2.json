@@ -1,0 +1,32 @@
+{
+  "title": "C: Sectioning",
+  "root": "root_8ad68453-4420-4708-b004-92c52587e853",
+  "nodes": {
+    "root_8ad68453-4420-4708-b004-92c52587e853": {
+      "text": "System Calculates the number of student per year level",
+      "children": [
+        "c9616269-05f7-4775-9d97-04987049e9f3"
+      ],
+      "comment": "after subject advising date ito"
+    },
+    "c9616269-05f7-4775-9d97-04987049e9f3": {
+      "text": "System Will Create sections                                         Target per section: 35 students\nMaximum per section: 40 students (hard limit)\nStrategy: balance evenly kapag may sobra o kulang",
+      "children": [
+        "3996bae2-f32f-4e23-8fea-b8ce17cc5c63"
+      ],
+      "comment": "hahatiin din yan into am session and pm session \nlike 3 section for am and 3 section for pm\nor 4 section for am and 4 section for pm\n\nbasta system will balance"
+    },
+    "3996bae2-f32f-4e23-8fea-b8ce17cc5c63": {
+      "text": "D: Scheduling (student scheduling)",
+      "children": [
+        "eaced403-7cde-4d89-861c-97f7514a2cb1"
+      ],
+      "comment": ""
+    },
+    "eaced403-7cde-4d89-861c-97f7514a2cb1": {
+      "text": "When all of the student has choosed their preffered schedule is meron nang records for sections which can be seen by registrar and (dean now can later assign schedule to professors)",
+      "children": [],
+      "comment": ""
+    }
+  }
+}

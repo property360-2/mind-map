@@ -1,0 +1,66 @@
+{
+  "title": "B: Subject Advising",
+  "root": "root_40f43de1-9f89-42c9-802c-18a68bb51c0c",
+  "nodes": {
+    "root_40f43de1-9f89-42c9-802c-18a68bb51c0c": {
+      "text": "Student Login to the portal",
+      "children": [
+        "8d7eff79-ebc0-4a5d-9ff7-e52d93db8b65",
+        "2055935a-66ab-48f9-a3d3-1d4db5aae768"
+      ],
+      "comment": ""
+    },
+    "8d7eff79-ebc0-4a5d-9ff7-e52d93db8b65": {
+      "text": "If student is regular",
+      "children": [
+        "c4d406c9-7848-416d-bd47-438832b47dd2"
+      ],
+      "comment": ""
+    },
+    "c4d406c9-7848-416d-bd47-438832b47dd2": {
+      "text": "subjects are auto-picked and ready for submission",
+      "children": [
+        "0bb2cf48-7665-407c-8242-c9f8459ff8db"
+      ],
+      "comment": ""
+    },
+    "2055935a-66ab-48f9-a3d3-1d4db5aae768": {
+      "text": "If Student is Irregular",
+      "children": [
+        "caa8f00f-028f-421d-8645-6e16e7f3a030"
+      ],
+      "comment": ""
+    },
+    "0bb2cf48-7665-407c-8242-c9f8459ff8db": {
+      "text": "After Submission, as head. All of the regular students can be toggled as check, or select all to approve the subjects",
+      "children": [
+        "f3bc9405-68d0-4cbd-8210-929428a4abb9"
+      ],
+      "comment": "when approved is makikita na rin ng registrar yung mga students who is enrolled sa subjects then pwede na sila mag release ng cor document"
+    },
+    "caa8f00f-028f-421d-8645-6e16e7f3a030": {
+      "text": "Student manually enroll his subjects in the system, capped at 30 units, prerequisites checking is enforced from the system",
+      "children": [
+        "c5a209d5-e882-44d3-8dc5-7a515777cb71"
+      ],
+      "comment": ""
+    },
+    "c5a209d5-e882-44d3-8dc5-7a515777cb71": {
+      "text": "head manually review and approve every subject advising",
+      "children": [
+        "39bb34f2-714f-4b1b-a370-779d6f08b851"
+      ],
+      "comment": "when approved is makikita na rin ng registrar yung mga students who is enrolled sa subjects then pwede na sila mag release ng cor document"
+    },
+    "f3bc9405-68d0-4cbd-8210-929428a4abb9": {
+      "text": "C: Sectioning",
+      "children": [],
+      "comment": ""
+    },
+    "39bb34f2-714f-4b1b-a370-779d6f08b851": {
+      "text": "C: Sectioning",
+      "children": [],
+      "comment": ""
+    }
+  }
+}

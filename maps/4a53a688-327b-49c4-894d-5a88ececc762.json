@@ -1,0 +1,32 @@
+{
+  "title": "Grade Submission",
+  "root": "root_aa78641d-8097-4c10-b45e-70550a57428a",
+  "nodes": {
+    "root_aa78641d-8097-4c10-b45e-70550a57428a": {
+      "text": "Professor login to his page",
+      "children": [
+        "e4a8ec2f-df79-429c-9fa9-42f82c6c5e84"
+      ],
+      "comment": ""
+    },
+    "e4a8ec2f-df79-429c-9fa9-42f82c6c5e84": {
+      "text": "Find section na lalagyan nya ng grade",
+      "children": [
+        "dddc4e2e-4314-48f5-936a-451f03149453"
+      ],
+      "comment": ""
+    },
+    "dddc4e2e-4314-48f5-936a-451f03149453": {
+      "text": "manually input grades for student",
+      "children": [
+        "cf5465c5-6249-4761-9c4a-dc860d33feba"
+      ],
+      "comment": "if subject submission date span is ended is inc na yung mga di nya nalagyan ng grade"
+    },
+    "cf5465c5-6249-4761-9c4a-dc860d33feba": {
+      "text": "student can now see their grades in their ui",
+      "children": [],
+      "comment": ""
+    }
+  }
+}

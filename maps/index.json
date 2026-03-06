@@ -21,10 +21,44 @@
   },
   {
     "id": "46d4d776-a73e-45e0-9d72-820a71669217",
-    "title": "enrollment, sectioning, "
+    "title": "enrollment, sectioning, ",
+    "archived": true
   },
   {
     "id": "32a6dc70-d701-4aac-ba9e-5efb59f491e6",
-    "title": ""
+    "title": "",
+    "archived": true
+  },
+  {
+    "id": "f172e0f2-7496-49be-85ae-3914ce4a227e",
+    "title": "plan"
+  },
+  {
+    "id": "89524fc8-79f1-45aa-9338-067847e6bdc6",
+    "title": "New Term Enrollment"
+  },
+  {
+    "id": "09cf6f2b-ff3e-42d6-9d75-ebdaf8421444",
+    "title": "A: Subject Crediting"
+  },
+  {
+    "id": "5bdcd4cc-0d9a-4748-9753-0927030eba53",
+    "title": "B: Subject Advising"
+  },
+  {
+    "id": "c9909780-55a2-4aee-b9f2-7022820b72b2",
+    "title": "C: Sectioning"
+  },
+  {
+    "id": "6d98303d-8283-49c7-a225-304220546dbe",
+    "title": "D: Scheduling"
+  },
+  {
+    "id": "4a53a688-327b-49c4-894d-5a88ececc762",
+    "title": "Grade Submission"
+  },
+  {
+    "id": "8e13dbf2-80ee-4614-abe7-9d4779ab2747",
+    "title": "Grade "
   }
 ]
